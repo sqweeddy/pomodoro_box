@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'SF UI Display Medium';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Display Medium'), url('./Fonts/sf-ui-display-medium-58646be638f96.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SF UI Display Bold';
+  font-style: normal;
+  font-weight: bold;
+  src: local('SF UI Display Bold'), url('./Fonts/sf-ui-display-bold-58646a511e3d9.woff') format('woff');
+}
+
+:root {
+  --black:          #333333;
+  --green:          #A8B64F;
+  --greenDark:      #899441;
+  --red:            #DC3E22;
+  --redDark:        #B7280F;
+  --redLight:       #EE735D;
+  --redUltraLight:  #EA8979;
+  --white:          #FFFFFF;
+  --grayE5:         #E5E5E5;
+  --grayF4:         #F4F4F4;
+  --grayC4:         #C4C4C4;
+  --gray99:         #999999;
+}
+
+body {
+  background-color: var(--white);
+  font-family: 'SF UI Display Medium', sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+* { 
+  margin: 0;
+  padding: 0;
+  color: var(--black);
+  box-sizing: border-box;
+}
+
