@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+}
+
+.left {
+  width: 31%;
+  margin-right: 16px;
+}
+
+.right {
+  width: 69%;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 33px;
+}
+
+.list {
+  margin-bottom: 25px;
+}
+
+.list li::before {
+  content: "\2022";
+  color: var(--redDark);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+}
+
+.list li {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 33px;
+}

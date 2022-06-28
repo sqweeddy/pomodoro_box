@@ -1,0 +1,23 @@
+.taskItem__btn {
+  position: relative;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  padding: 6px 0;
+  border: 1px solid var(--grayC4);
+  transform: translate(-70px, 8px);
+  background-color: var(--white);
+  z-index: 2;
+}
+
+.menuIcon {
+  margin-right: 7px;
+}
+
+.menuItem:hover {  
+  background-color: var(--grayF4);
+}

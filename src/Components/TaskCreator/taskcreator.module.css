@@ -1,0 +1,50 @@
+.input {
+  padding: 19px 15px;
+  margin-bottom: 25px;
+  background-color: var(--grayF4);
+  border: none;
+  width: 70%;
+}
+
+.input::placeholder {
+  font-family: 'SF UI Display Medium';
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 17px;
+  color: var(--gray99);
+}
+
+.form {
+  margin-bottom: 25px;
+}
+
+.taskList {
+  width: 70%;
+}
+
+.taskItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 19px 0;
+  border-top: 1px solid var(--grayE4);
+  border-bottom: 1px solid var(--grayE4);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 17px;
+}
+
+.taskItem:not(:first-child) {
+  margin-top: -1px;
+}
+
+.taskItem:hover > * > *+* {
+  color: var(--red);
+}
+
+.taskItem__reps {
+  margin-right: 10px;
+  padding: 5px 11px;
+  border: 1px solid var(--grayC4);
+  border-radius: 100%;
+}

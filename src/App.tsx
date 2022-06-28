@@ -1,12 +1,12 @@
 import React from "react";
-import { Header } from "./shared/Header";
-import { MainContent } from "./shared/MainContent";
+import { AppRouter } from "./Components/AppRouter";
+import { Header } from "./Components/Header";
 
 function App() {
   return (
     <>
       <Header />
-      <MainContent />
+      <AppRouter />
     </>
   );
 }

@@ -1,0 +1,35 @@
+.green {
+  padding: 19px 50px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 17px;
+  color: var(--white);
+  background-color: var(--green);
+  border: 2px solid var(--green);
+  cursor: pointer;
+}
+
+.red {
+  padding: 19px 50px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 17px;
+  color: var(--white);
+  background-color: var(--red);
+  border: 2px solid var(--red);
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px 9px 15px;
+  width: 100%;
+  background-color: transparent;
+  color: var(--gray99);
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 17px;
+  cursor: pointer;
+}

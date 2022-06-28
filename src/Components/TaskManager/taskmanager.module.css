@@ -1,0 +1,46 @@
+.wrapper {
+  background-color: var(--grayF4);
+}
+
+.header {
+  padding: 19px 40px;
+  margin-bottom: 70px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--grayC4);
+}
+
+.header div {
+  color: var(--white);
+}
+
+.main {
+  padding-bottom: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer {
+  font-size: 150px;
+  font-weight: 200;
+  line-height: 179px;
+}
+
+.task {
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.taskNumber {
+  margin-right: 5px;
+  color: var(--gray99);
+}
+
+.taskName {
+  color: var(--bla);
+}
+
+.buttonBlock button:first-child {
+  margin-right: 25px;
+}
