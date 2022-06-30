@@ -15,12 +15,17 @@ export interface SetTaskAction {
 
 export interface IncrementPomodoroAction {
   type: 'INCREMENT_POMODORO',
-  payload: number
+  payload: string
 }
 
 export interface DecrementPomodoroAction {
   type: 'DECREMENT_POMODORO',
-  payload: number
+  payload: string
 }
 
-export type TaskAction = SetTaskAction | IncrementPomodoroAction | DecrementPomodoroAction
+export interface DeleteTaskAction {
+  type: 'DELETE_TASK',
+  payload: string
+}
+
+export type TaskAction = SetTaskAction | IncrementPomodoroAction | DecrementPomodoroAction | DeleteTaskAction
