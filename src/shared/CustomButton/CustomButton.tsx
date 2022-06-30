@@ -12,6 +12,7 @@ interface ICustomButton {
   text: string;
   buttonStyle: EButtonStyle;
   onClick?: () => void;
+  disabled?: boolean;
   children?: ReactNode;
 }
 
@@ -20,10 +21,11 @@ export function CustomButton({
   buttonStyle,
   onClick,
   children,
+  disabled,
 }: ICustomButton) {
   const classes = classnames(styles[buttonStyle]);
   return (
-    <button className={classes} onClick={onClick}>
+    <button className={classes} onClick={onClick} disabled={disabled}>
       {children}
       {text}
     </button>

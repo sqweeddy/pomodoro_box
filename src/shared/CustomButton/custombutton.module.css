@@ -33,3 +33,12 @@
   line-height: 17px;
   cursor: pointer;
 }
+
+
+.menu:disabled svg path {
+  fill: var(--grayC4);
+}
+
+.menu:disabled {  
+  cursor: default;
+}

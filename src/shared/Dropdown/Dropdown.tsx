@@ -8,17 +8,21 @@ import { ReactComponent as MenuDelete } from "../../images/menu-icon-delete.svg"
 import { CustomButton, EButtonStyle } from "../CustomButton";
 import { useDispatch } from "react-redux";
 import { TaskActionCreators } from "../../store/reducers/task/action-creators";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 interface IDropdown {
   id: string;
 }
 
 export function Dropdown({ id }: IDropdown) {
+  const taskArray = useTypedSelector((state) => state.taskReducer.taskArray);
+  const task = taskArray.find((el) => el.id === id);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const dispatch = useDispatch();
 
   const handleOpen = () => {
+    console.log(task);
     setIsDropdownOpen(!isDropdownOpen);
   };
 
@@ -62,6 +66,7 @@ export function Dropdown({ id }: IDropdown) {
                   buttonStyle={EButtonStyle.menu}
                   onClick={handleMinus}
                   text="Уменьшить"
+                  disabled={task?.repeats === 1}
                 >
                   <MenuMinus className={styles.menuIcon} />
                 </CustomButton>
