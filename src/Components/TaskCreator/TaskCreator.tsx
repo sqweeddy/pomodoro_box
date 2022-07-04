@@ -41,8 +41,10 @@ export function TaskCreator() {
         <ul className={styles.taskList}>
           {taskArray.map((task) => (
             <li className={styles.taskItem} key={task.id}>
-              <div>
-                <span className={styles.taskItem__reps}>{task.repeats}</span>
+              <div className={styles.taskItem__data}>
+                <div className={styles.taskItem__reps}>
+                  <span>{task.repeats}</span>
+                </div>
                 <span className={styles.taskItem__name}>{task.name}</span>
               </div>
               <Dropdown id={task.id} />

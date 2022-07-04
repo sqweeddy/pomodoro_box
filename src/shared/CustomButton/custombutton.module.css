@@ -20,6 +20,27 @@
   cursor: pointer;
 }
 
+.red:disabled {
+  cursor: unset;
+}
+
+.stop {
+  padding: 19px 50px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 17px;
+  color: var(--red);
+  background-color: transparent;
+  border: 2px solid var(--red);
+  cursor: pointer;
+}
+
+.stop:disabled {
+  cursor: unset;
+  color: var(--grayC4);
+  border-color: var(--grayC4);
+}
+
 .menu {
   display: flex;
   align-items: center;

@@ -17,19 +17,19 @@ export default function taskReducer(state = initialState, action : TaskAction): 
       if (task) {
         task.repeats +=  1
       }
-      return { ...state, taskArray }
+      return { ...state, taskArray: [...taskArray]}
 
     case 'DECREMENT_POMODORO':
       if (task) {
         task.repeats -=  1        
       }
-      return { ...state, taskArray }
+      return { ...state, taskArray: [...taskArray]}
   
     case 'DELETE_TASK':
       if (task) {
         taskArray.splice(taskArray.indexOf(task), 1);
       }
-      return { ...state, taskArray }
+      return { ...state, taskArray: [...taskArray]}
   
     default:
       return state;

@@ -43,8 +43,19 @@
 }
 
 .taskItem__reps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
   margin-right: 10px;
   padding: 5px 11px;
   border: 1px solid var(--grayC4);
   border-radius: 100%;
+}
+
+.taskItem__data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

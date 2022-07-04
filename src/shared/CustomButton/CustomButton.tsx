@@ -6,6 +6,7 @@ export enum EButtonStyle {
   green = "green",
   red = "red",
   menu = "menu",
+  stop = "stop",
 }
 
 interface ICustomButton {
