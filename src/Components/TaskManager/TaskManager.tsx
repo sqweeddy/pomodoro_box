@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { CustomButton, EButtonStyle } from "../../shared/CustomButton";
+import { ReactComponent as Plus } from "../../images/big-plus-icon.svg";
 import styles from "./taskmanager.module.css";
 
 export function TaskManager() {
   const taskArray = useTypedSelector((state) => state.taskReducer.taskArray);
 
-  const [isTimerActive, setTimerActive] = useState(false);
   const [isInitialStart, setInitialStart] = useState(false);
-  const [isBreakStart, setBreakStart] = useState(false);
+  const [isTimerActive, setTimerActive] = useState(false);
+  const [isBreakActive, setBreakActive] = useState(false);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(5);
+  const [taskNumber, setTaskNumber] = useState(0);
+  const [pomodoroNumber, setPomodoroNumber] = useState(1);
+  const [taskTitle, setTaskTitle] = useState("Текущая задача");
 
-  const taskTitle = taskArray[0] ? taskArray[0].name : "Текущая задача";
-  const pomodoroDelta = taskArray[0] ? taskArray[0].repeats - 1 : 1;
-  const pomodoroNumber = taskArray[0]
-    ? taskArray[0].repeats - pomodoroDelta
-    : 1;
-
-  const taskNumber = isTimerActive
-    ? `Задача${taskArray.indexOf(taskArray[0])}`
-    : "Задача 1";
+  const checkArray = taskArray.length > 0 && taskArray.length > taskNumber;
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (isTimerActive || isBreakStart) {
+    if (isTimerActive) {
       timer = setInterval(() => {
         setSeconds(seconds - 1);
         if (seconds === 0) {
@@ -33,22 +29,49 @@ export function TaskManager() {
         }
       }, 1000);
     }
-    if (seconds === 0 && minutes === 0 && !isBreakStart) {
+    if (checkArray) {
+      setTaskTitle(taskArray[taskNumber].name);
+      if (seconds === 0 && minutes === 0) {
+        if (!isBreakActive && isTimerActive) {
+          setBreakActive(true);
+          setTime();
+        } else {
+          setBreakActive(false);
+          if (taskArray.length !== taskNumber + 1) {
+            setTime();
+            if (pomodoroNumber !== taskArray[taskNumber].repeats) {
+              setPomodoroNumber(pomodoroNumber + 1);
+            } else {
+              setPomodoroNumber(1);
+              setTaskNumber(taskNumber + 1);
+            }
+          } else {
+            setTime();
+            if (pomodoroNumber !== taskArray[taskNumber].repeats) {
+              setPomodoroNumber(pomodoroNumber + 1);
+            } else {
+              setTimerActive(false);
+              setInitialStart(false);
+            }
+          }
+        }
+      }
+    } else if (seconds === 0 && minutes === 0) {
       setTimerActive(false);
       setInitialStart(false);
-      setBreakStart(true);
-      setMinutes(0);
-      setSeconds(5);
-    }
-    if (seconds === 0 && minutes === 0 && isBreakStart) {
-      setTimerActive(false);
-      setInitialStart(false);
-      setBreakStart(false);
-      handleStop();
     }
 
     return () => clearInterval(timer);
-  }, [isBreakStart, isTimerActive, minutes, seconds]);
+  }, [
+    checkArray,
+    isBreakActive,
+    isTimerActive,
+    minutes,
+    pomodoroNumber,
+    seconds,
+    taskArray,
+    taskNumber,
+  ]);
 
   function handleStart() {
     setTimerActive(true);
@@ -57,8 +80,7 @@ export function TaskManager() {
 
   function handleStop() {
     setTimerActive(false);
-    setMinutes(25);
-    setSeconds(0);
+    setTime();
     setInitialStart(false);
   }
 
@@ -66,42 +88,99 @@ export function TaskManager() {
     setTimerActive(false);
   }
 
+  function handleSkip() {
+    setMinutes(0);
+    setSeconds(0);
+  }
+
+  function setTime() {
+    setMinutes(0);
+    setSeconds(5);
+  }
+
+  function handlePlus() {
+    setSeconds(seconds + 1);
+  }
+
   return (
     <div className={styles.wrapper}>
-      <div className={isInitialStart ? styles.headerRed : styles.header}>
-        <div>{taskTitle}</div>
-        <div>Помидор {pomodoroNumber}</div>
-      </div>
-      <div className={styles.main}>
-        <div className={isTimerActive ? styles.timerRed : styles.timer}>
-          {minutes < 10 ? "0" + minutes : minutes}:
-          {seconds < 10 ? "0" + seconds : seconds}
+      {isBreakActive ? (
+        <div className={isBreakActive ? styles.headerGreen : styles.header}>
+          <div>{taskTitle}</div>
+          <div>Помидор {pomodoroNumber}</div>
         </div>
+      ) : (
+        <div className={isInitialStart ? styles.headerRed : styles.header}>
+          <div>{taskTitle}</div>
+          <div>Помидор {pomodoroNumber}</div>
+        </div>
+      )}
+      <div className={styles.main}>
+        {isBreakActive ? (
+          <div className={isTimerActive ? styles.timerGreen : styles.timer}>
+            {minutes < 10 ? "0" + minutes : minutes}:
+            {seconds < 10 ? "0" + seconds : seconds}
+          </div>
+        ) : (
+          <div className={isTimerActive ? styles.timerRed : styles.timer}>
+            {minutes < 10 ? "0" + minutes : minutes}:
+            {seconds < 10 ? "0" + seconds : seconds}
+          </div>
+        )}
         <div className={styles.task}>
-          <div className={styles.taskNumber}>{taskNumber} - </div>
+          <div className={styles.taskNumber}>Задача {taskNumber + 1} - </div>
           <div className={styles.taskName}> {taskTitle}</div>
         </div>
-        <div className={styles.buttonBlock}>
-          {isTimerActive ? (
+        {!isBreakActive ? (
+          <div className={styles.buttonBlock}>
+            {isTimerActive ? (
+              <CustomButton
+                text="Пауза"
+                buttonStyle={EButtonStyle.green}
+                onClick={handlePause}
+              />
+            ) : (
+              <CustomButton
+                text={isInitialStart ? "Продолжить" : "Старт"}
+                buttonStyle={EButtonStyle.green}
+                onClick={handleStart}
+              />
+            )}
             <CustomButton
-              text="Пауза"
-              buttonStyle={EButtonStyle.green}
-              onClick={handlePause}
+              text="Стоп"
+              buttonStyle={EButtonStyle.stop}
+              onClick={handleStop}
+              disabled={isInitialStart ? false : true}
             />
-          ) : (
+          </div>
+        ) : (
+          <div className={styles.buttonBlock}>
+            {isTimerActive ? (
+              <CustomButton
+                text="Пауза"
+                buttonStyle={EButtonStyle.green}
+                onClick={handlePause}
+              />
+            ) : (
+              <CustomButton
+                text={"Продолжить"}
+                buttonStyle={EButtonStyle.green}
+                onClick={handleStart}
+              />
+            )}
             <CustomButton
-              text={isInitialStart ? "Продолжить" : "Старт"}
-              buttonStyle={EButtonStyle.green}
-              onClick={handleStart}
+              text="Пропустить"
+              buttonStyle={EButtonStyle.stop}
+              onClick={handleSkip}
+              disabled={isInitialStart ? false : true}
             />
-          )}
-          <CustomButton
-            text="Стоп"
-            buttonStyle={EButtonStyle.stop}
-            onClick={handleStop}
-            disabled={isInitialStart ? false : true}
-          />
-        </div>
+          </div>
+        )}
+        {!isInitialStart && (
+          <button className={styles.plus} onClick={handlePlus}>
+            <Plus />
+          </button>
+        )}
       </div>
     </div>
   );

@@ -26,7 +26,20 @@
   color: var(--white);
 }
 
+.headerGreen {
+  padding: 19px 40px;
+  margin-bottom: 70px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--green);
+}
+
+.headerGreen div {
+  color: var(--white);
+}
+
 .main {
+  position: relative;
   padding-bottom: 70px;
   display: flex;
   flex-direction: column;
@@ -34,16 +47,26 @@
 }
 
 .timer {
+  width: 4.33ch;
   font-size: 150px;
   font-weight: 200;
   line-height: 179px;
 }
 
 .timerRed {
+  width: 4.33ch;
   font-size: 150px;
   font-weight: 200;
   line-height: 179px;
   color: var(--red);
+}
+
+.timerGreen {
+  width: 4.33ch;
+  font-size: 150px;
+  font-weight: 200;
+  line-height: 179px;
+  color: var(--green);
 }
 
 .task {
@@ -62,4 +85,13 @@
 
 .buttonBlock button:first-child {
   margin-right: 25px;
+}
+
+.plus {  
+  position: absolute;
+  top: 20%;
+  right: 27%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
