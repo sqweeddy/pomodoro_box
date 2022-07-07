@@ -1,0 +1,81 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.topMetaData {
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.aside {
+  width: calc(296 / 1240 * 100%);
+  margin-right: 32px;
+}
+
+.timetable {
+  padding-top: 30px;
+  width: calc(952 / 1240 * 100%);
+  background-color: var(--grayF4);
+}
+
+.dayDataContent {
+  padding: 25px;
+  margin-bottom: 32px;
+  background-color: var(--grayF4);
+}
+
+.pomodoroData {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background-color: var(--grayF4);
+}
+
+
+
+.botMetaData {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.botMetaData > div {
+  width: 31.9%;
+  padding: 25px;
+  background-color: var(--grayF4);
+}
+
+.focus {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pauseTime {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stopCounter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.blockTitle {  
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+}
+
+.blockData {  
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 76px;
+}
+
+.blockRight {
+  max-height: 129px;
+}

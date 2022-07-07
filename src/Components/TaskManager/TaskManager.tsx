@@ -52,6 +52,8 @@ export function TaskManager() {
             } else {
               setTimerActive(false);
               setInitialStart(false);
+              setTaskNumber(0);
+              setPomodoroNumber(1);
             }
           }
         }
