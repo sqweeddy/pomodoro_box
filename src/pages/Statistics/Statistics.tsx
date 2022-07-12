@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import styles from "./statistics.module.css";
 import { ReactComponent as FocusIcon } from "../../images/focus.svg";
 import { ReactComponent as TimerIcon } from "../../images/timer.svg";
 import { ReactComponent as StopIcon } from "../../images/stop.svg";
 import { ReactComponent as SmileTomatoIcon } from "../../images/smile-tomato.svg";
+import { ReactComponent as TomatoIcon } from "../../images/tomato.svg";
 import {
   BarChart,
   Bar,
@@ -14,8 +15,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 export function Statistics() {
+  const statsArray = useTypedSelector((state) => state.statsReducer.statsArray);
   const data = [
     {
       name: "Пн",
@@ -47,9 +50,17 @@ export function Statistics() {
     },
   ];
 
-  const handleBarClick = () => {
-    console.log();
-  };
+  const [day, setDay] = useState("Суббота");
+  const [workTime, setWorkTime] = useState(undefined);
+  const [pomodoros, setPomodoros] = useState(undefined);
+
+  function handleBarClick() {
+    console.log(arguments);
+
+    setDay(arguments[0].name);
+    setWorkTime(arguments[0].time);
+    setPomodoros(arguments[0].time);
+  }
   return (
     <main>
       <div className="container">
@@ -61,12 +72,27 @@ export function Statistics() {
           <div className={styles.topMetaData}>
             <div className={styles.aside}>
               <div className={styles.dayDataContent}>
-                <div className={styles.blockTitle}>Суббота</div>
-                <div className={styles.dayData}>Нет данных</div>
+                <div className={styles.blockTitle}>{day}</div>
+                <div className={styles.dayData}>
+                  {workTime === undefined
+                    ? "Нет данных"
+                    : `Вы работали над задачами в течении ${workTime} минут`}
+                </div>
               </div>
-              <div className={styles.pomodoroData}>
-                <SmileTomatoIcon />
-              </div>
+              {pomodoros === undefined ? (
+                <div className={styles.pomodoroData}>
+                  <SmileTomatoIcon />
+                </div>
+              ) : (
+                <div className={styles.pomodoroDataE}>
+                  <div>
+                    <TomatoIcon className={styles.tomatoIcon} />
+                  </div>
+                  <div className={styles.pomodoroNumber}>
+                    {pomodoros} помидора
+                  </div>
+                </div>
+              )}
             </div>
             <div className={styles.timetable}>
               <ResponsiveContainer width="100%" height="100%">

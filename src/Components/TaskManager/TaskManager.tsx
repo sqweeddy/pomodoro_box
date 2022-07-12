@@ -3,8 +3,11 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { CustomButton, EButtonStyle } from "../../shared/CustomButton";
 import { ReactComponent as Plus } from "../../images/big-plus-icon.svg";
 import styles from "./taskmanager.module.css";
+import { useDispatch } from "react-redux";
+import { StatsActionCreators } from "../../store/reducers/stats/action-creators";
 
 export function TaskManager() {
+  const dispatch = useDispatch();
   const taskArray = useTypedSelector((state) => state.taskReducer.taskArray);
 
   const [isInitialStart, setInitialStart] = useState(false);
@@ -12,11 +15,14 @@ export function TaskManager() {
   const [isBreakActive, setBreakActive] = useState(false);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(5);
+  const [pomodoroTimer, setPomodoroTimer] = useState(seconds);
   const [taskNumber, setTaskNumber] = useState(0);
   const [pomodoroNumber, setPomodoroNumber] = useState(1);
   const [taskTitle, setTaskTitle] = useState("Текущая задача");
 
   const checkArray = taskArray.length > 0 && taskArray.length > taskNumber;
+
+  const date = new Date();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -34,9 +40,13 @@ export function TaskManager() {
       if (seconds === 0 && minutes === 0) {
         if (!isBreakActive && isTimerActive) {
           setBreakActive(true);
-          setTime();
+          setPauseTime();
+          dispatch(
+            StatsActionCreators.addPomodoro(date.getDate(), pomodoroTimer)
+          );
         } else {
           setBreakActive(false);
+          dispatch(StatsActionCreators.addPause(date.getDate()));
           if (taskArray.length !== taskNumber + 1) {
             setTime();
             if (pomodoroNumber !== taskArray[taskNumber].repeats) {
@@ -61,16 +71,22 @@ export function TaskManager() {
     } else if (seconds === 0 && minutes === 0) {
       setTimerActive(false);
       setInitialStart(false);
+      setTime();
+      dispatch(StatsActionCreators.addPomodoro(date.getDate(), pomodoroTimer));
     }
 
     return () => clearInterval(timer);
   }, [
     checkArray,
+    date,
+    dispatch,
     isBreakActive,
     isTimerActive,
     minutes,
     pomodoroNumber,
+    pomodoroTimer,
     seconds,
+    setTime,
     taskArray,
     taskNumber,
   ]);
@@ -78,12 +94,23 @@ export function TaskManager() {
   function handleStart() {
     setTimerActive(true);
     setInitialStart(true);
+    dispatch(
+      StatsActionCreators.setDay({
+        monthDay: date.getDate(),
+        weekDay: date.getDay(),
+        workTime: 0,
+        pomodoroNumber: 0,
+        pauseTime: 0,
+        stopNumber: 0,
+      })
+    );
   }
 
   function handleStop() {
     setTimerActive(false);
     setTime();
     setInitialStart(false);
+    dispatch(StatsActionCreators.addStop(date.getDate()));
   }
 
   function handlePause() {
@@ -93,15 +120,22 @@ export function TaskManager() {
   function handleSkip() {
     setMinutes(0);
     setSeconds(0);
+    dispatch(StatsActionCreators.skipPause(date.getDate()));
   }
 
   function setTime() {
+    setMinutes(0);
+    setSeconds(pomodoroTimer);
+  }
+
+  function setPauseTime() {
     setMinutes(0);
     setSeconds(5);
   }
 
   function handlePlus() {
     setSeconds(seconds + 1);
+    setPomodoroTimer(pomodoroTimer + 1);
   }
 
   return (
@@ -118,17 +152,24 @@ export function TaskManager() {
         </div>
       )}
       <div className={styles.main}>
-        {isBreakActive ? (
-          <div className={isTimerActive ? styles.timerGreen : styles.timer}>
-            {minutes < 10 ? "0" + minutes : minutes}:
-            {seconds < 10 ? "0" + seconds : seconds}
-          </div>
-        ) : (
-          <div className={isTimerActive ? styles.timerRed : styles.timer}>
-            {minutes < 10 ? "0" + minutes : minutes}:
-            {seconds < 10 ? "0" + seconds : seconds}
-          </div>
-        )}
+        <div className={styles.timeBlock}>
+          {isBreakActive ? (
+            <div className={isTimerActive ? styles.timerGreen : styles.timer}>
+              {minutes < 10 ? "0" + minutes : minutes}:
+              {seconds < 10 ? "0" + seconds : seconds}
+            </div>
+          ) : (
+            <div className={isTimerActive ? styles.timerRed : styles.timer}>
+              {minutes < 10 ? "0" + minutes : minutes}:
+              {seconds < 10 ? "0" + seconds : seconds}
+            </div>
+          )}
+          {!isInitialStart && (
+            <button className={styles.plus} onClick={handlePlus}>
+              <Plus />
+            </button>
+          )}
+        </div>
         <div className={styles.task}>
           <div className={styles.taskNumber}>Задача {taskNumber + 1} - </div>
           <div className={styles.taskName}> {taskTitle}</div>
@@ -177,11 +218,6 @@ export function TaskManager() {
               disabled={isInitialStart ? false : true}
             />
           </div>
-        )}
-        {!isInitialStart && (
-          <button className={styles.plus} onClick={handlePlus}>
-            <Plus />
-          </button>
         )}
       </div>
     </div>

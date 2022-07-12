@@ -87,10 +87,16 @@
   margin-right: 25px;
 }
 
-.plus {  
-  position: absolute;
-  top: 20%;
-  right: 27%;
+.timeBlock {
+  display: flex;
+}
+
+.timeBlock > div {
+  margin: 0 25px;
+}
+
+.plus {
+  margin-right: -50px;
   background: transparent;
   border: none;
   cursor: pointer;

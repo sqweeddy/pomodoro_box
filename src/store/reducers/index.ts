@@ -1,7 +1,9 @@
+import statsReducer from "./stats";
 import taskReducer from "./task";
 
 const reducers = {
-  taskReducer
+  taskReducer,
+  statsReducer
 }
 
 export default reducers

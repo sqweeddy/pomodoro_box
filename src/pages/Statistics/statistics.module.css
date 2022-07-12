@@ -11,17 +11,23 @@
 }
 
 .aside {
+  display: flex;
+  flex-direction: column;
   width: calc(296 / 1240 * 100%);
   margin-right: 32px;
 }
 
 .timetable {
   padding-top: 30px;
+  height: 380px;
   width: calc(952 / 1240 * 100%);
   background-color: var(--grayF4);
 }
 
 .dayDataContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
   padding: 25px;
   margin-bottom: 32px;
   background-color: var(--grayF4);
@@ -33,6 +39,36 @@
   justify-content: center;
   padding: 25px;
   background-color: var(--grayF4);
+}
+
+.pomodoroDataE{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 179px;
+  position: relative;
+  background-color: var(--grayF4);
+}
+
+.pomodoroNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 9px 78px;
+  background-color: var(--red);
+  color: var(--white);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 33px;
+}
+
+.tomatoIcon {
+  height: 81px;
+  width: 81px;
 }
 
 
