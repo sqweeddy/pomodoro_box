@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./dropdown.module.css";
 import { ReactComponent as MenuIcon } from "../../images/menu-icon.svg";
 import { ReactComponent as MenuPlus } from "../../images/menu-icon-plus.svg";
 import { ReactComponent as MenuMinus } from "../../images/menu-icon-minus.svg";
 import { ReactComponent as MenuEdit } from "../../images/menu-icon-edit.svg";
 import { ReactComponent as MenuDelete } from "../../images/menu-icon-delete.svg";
+import { ReactComponent as Cross } from "../../images/big-plus-icon.svg";
 import { CustomButton, EButtonStyle } from "../CustomButton";
 import { useDispatch } from "react-redux";
 import { TaskActionCreators } from "../../store/reducers/task/action-creators";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { Transition } from "react-transition-group";
 
 interface IDropdown {
   id: string;
@@ -19,10 +21,10 @@ export function Dropdown({ id }: IDropdown) {
   const task = taskArray.find((el) => el.id === id);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
   const handleOpen = () => {
-    console.log(task);
     setIsDropdownOpen(!isDropdownOpen);
   };
 
@@ -47,10 +49,14 @@ export function Dropdown({ id }: IDropdown) {
     <>
       <div>
         <button className={styles.taskItem__btn} onClick={handleOpen}>
-          <MenuIcon />
+          {isDropdownOpen ? (
+            <Cross className={styles.crossStyle} />
+          ) : (
+            <MenuIcon style={{ height: "100%" }} />
+          )}
         </button>
         {isDropdownOpen && (
-          <div className={styles.dropdown}>
+          <div className={styles.dropdown} ref={ref}>
             <ul>
               <li className={styles.menuItem}>
                 <CustomButton

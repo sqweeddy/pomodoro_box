@@ -1,8 +1,11 @@
 .taskItem__btn {
+  padding: 5px 1px;
   position: relative;
   border: none;
+  height: 26px;
   background-color: transparent;
   cursor: pointer;
+  border-radius: 100%;
 }
 
 .dropdown {
@@ -20,4 +23,25 @@
 
 .menuItem:hover {  
   background-color: var(--grayF4);
+}
+
+.crossStyle {
+  width: 26px;
+  height: 26px;
+  margin: -5px -1px;
+  animation: roll .5s ease forwards ;
+}
+
+
+@keyframes roll {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(45deg);    
+  }
 }

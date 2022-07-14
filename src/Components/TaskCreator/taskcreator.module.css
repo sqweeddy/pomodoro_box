@@ -39,7 +39,7 @@
 }
 
 .taskItem:hover > * > *+* {
-  color: var(--red);
+  color: var(--green);
 }
 
 .taskItem__reps {

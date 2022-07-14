@@ -2,7 +2,72 @@ import { StatsAction, StatsState } from "./types";
 
 
 const initialState: StatsState = {
-  statsArray: []
+  statsArray: [
+    {
+      monthDay: 14,
+      weekDay: 4,
+      workTime: 90,
+      pomodoroNumber: 1,
+      pauseTime: 5,
+      stopNumber: 1
+    },
+    {
+      monthDay: 15,
+      weekDay: 5,
+      workTime: 55,
+      pomodoroNumber: 1,
+      pauseTime: 5,
+      stopNumber: 1
+    },
+    {
+      monthDay: 16,
+      weekDay: 6,
+      workTime: 66,
+      pomodoroNumber: 1,
+      pauseTime: 5,
+      stopNumber: 1
+    },
+    {
+      monthDay: 17,
+      weekDay: 0,
+      workTime: 77,
+      pomodoroNumber: 1,
+      pauseTime: 5,
+      stopNumber: 1
+    },
+    {
+      monthDay: 14,
+      weekDay: 1,
+      workTime: 11,
+      pomodoroNumber: 1,
+      pauseTime: 5,
+      stopNumber: 1
+    },
+    {
+      monthDay: 15,
+      weekDay: 2,
+      workTime: 22,
+      pomodoroNumber: 1,
+      pauseTime: 5,
+      stopNumber: 1
+    },
+    {
+      monthDay: 16,
+      weekDay: 3,
+      workTime: 33,
+      pomodoroNumber: 1,
+      pauseTime: 5,
+      stopNumber: 1
+    },
+    {
+      monthDay: 17,
+      weekDay: 4,
+      workTime: 44,
+      pomodoroNumber: 1,
+      pauseTime: 5,
+      stopNumber: 1
+    },
+  ]
 }
 
 export default function statsReducer(state= initialState, action: StatsAction):StatsState {

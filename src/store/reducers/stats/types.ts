@@ -6,6 +6,7 @@ export interface IPomodoro {
 export interface Stats {
   monthDay: number,
   weekDay: number,
+  weekDayFull?: string,
   workTime: number,
   pomodoroNumber: number,
   pauseTime: number,

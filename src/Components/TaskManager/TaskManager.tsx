@@ -76,17 +76,15 @@ export function TaskManager() {
     }
 
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     checkArray,
-    date,
-    dispatch,
     isBreakActive,
     isTimerActive,
     minutes,
     pomodoroNumber,
     pomodoroTimer,
     seconds,
-    setTime,
     taskArray,
     taskNumber,
   ]);
