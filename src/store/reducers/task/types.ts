@@ -1,3 +1,8 @@
+export interface EditTask {
+  id: string,
+  name: string
+}
+
 export interface TaskObject {
     name: string,
     repeats: number,
@@ -28,4 +33,9 @@ export interface DeleteTaskAction {
   payload: string
 }
 
-export type TaskAction = SetTaskAction | IncrementPomodoroAction | DecrementPomodoroAction | DeleteTaskAction
+export interface EditTaskNameAction {
+  type: 'EDIT_TASK_NAME',
+  payload: EditTask
+}
+
+export type TaskAction = SetTaskAction | IncrementPomodoroAction | DecrementPomodoroAction | DeleteTaskAction | EditTaskNameAction

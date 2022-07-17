@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import styles from "./dropdown.module.css";
 import { ReactComponent as MenuIcon } from "../../images/menu-icon.svg";
 import { ReactComponent as MenuPlus } from "../../images/menu-icon-plus.svg";
@@ -10,7 +10,8 @@ import { CustomButton, EButtonStyle } from "../CustomButton";
 import { useDispatch } from "react-redux";
 import { TaskActionCreators } from "../../store/reducers/task/action-creators";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { Transition } from "react-transition-group";
+import { Modal } from "../../Components/Modal";
+import ReactDOM from "react-dom";
 
 interface IDropdown {
   id: string;
@@ -21,7 +22,10 @@ export function Dropdown({ id }: IDropdown) {
   const task = taskArray.find((el) => el.id === id);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [isModalOpened, setIsModalOpened] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const portal = document.querySelector("#portal");
   const dispatch = useDispatch();
 
   const handleOpen = () => {
@@ -31,6 +35,9 @@ export function Dropdown({ id }: IDropdown) {
   const handleEdit = () => {
     setIsDropdownOpen(!isDropdownOpen);
     setIsEditOpen(!isEditOpen);
+    if (task) {
+      setInputValue(task.name);
+    }
   };
 
   const handlePlus = () => {
@@ -41,12 +48,52 @@ export function Dropdown({ id }: IDropdown) {
     dispatch(TaskActionCreators.decrementTaskPomodoro(id));
   };
 
-  const handleDelete = () => {
-    dispatch(TaskActionCreators.deleteTask(id));
+  const handleDelete = (taskId: string) => {
+    dispatch(TaskActionCreators.deleteTask(taskId));
   };
+
+  const handleSave = () => {
+    setIsEditOpen(!isEditOpen);
+    if (task) {
+      dispatch(TaskActionCreators.editTask(task.id, inputValue));
+    }
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const openDeleteModal = () => {
+    setIsDropdownOpen(false);
+    setIsModalOpened(!isModalOpened);
+  };
+  if (!portal) return null;
 
   return (
     <>
+      {isModalOpened &&
+        ReactDOM.createPortal(
+          <Modal
+            setIsModalOpened={setIsModalOpened}
+            action={handleDelete}
+            id={id}
+          />,
+          portal
+        )}
+      {isEditOpen && (
+        <>
+          <input
+            className={styles.input}
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            autoFocus
+          />
+          <button className={styles.btn} onClick={handleSave}>
+            Сохранить
+          </button>
+        </>
+      )}
       <div>
         <button className={styles.taskItem__btn} onClick={handleOpen}>
           {isDropdownOpen ? (
@@ -80,7 +127,7 @@ export function Dropdown({ id }: IDropdown) {
               <li className={styles.menuItem}>
                 <CustomButton
                   buttonStyle={EButtonStyle.menu}
-                  // onClick={handleEdit}
+                  onClick={handleEdit}
                   text="Редактировать"
                 >
                   <MenuEdit className={styles.menuIcon} />
@@ -89,7 +136,7 @@ export function Dropdown({ id }: IDropdown) {
               <li className={styles.menuItem}>
                 <CustomButton
                   buttonStyle={EButtonStyle.menu}
-                  onClick={handleDelete}
+                  onClick={openDeleteModal}
                   text="Удалить"
                 >
                   <MenuDelete className={styles.menuIcon} />
@@ -99,7 +146,6 @@ export function Dropdown({ id }: IDropdown) {
           </div>
         )}
       </div>
-      {/* {isEditOpen && <input type="text" />} */}
     </>
   );
 }

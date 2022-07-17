@@ -26,6 +26,12 @@
   --grayF4:         #F4F4F4;
   --grayC4:         #C4C4C4;
   --gray99:         #999999;
+  --peach:          #FFAE35;
+  --peachLight:     #FFDDA9;
+  --purple:         #9C97D7;
+  --purpleLight:    #DFDCFE;
+  --aqua:           #7FC2D7;
+  --aquaLight:      #C5F1FF;
 }
 
 body {

@@ -26,6 +26,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   padding: 19px 0;
   border-top: 1px solid var(--grayE4);
   border-bottom: 1px solid var(--grayE4);

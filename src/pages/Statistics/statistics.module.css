@@ -5,29 +5,30 @@
   margin-bottom: 30px;
 }
 
+.select {
+  width: 208px;
+}
+
 .topMetaData {
   display: flex;
   margin-bottom: 32px;
 }
 
 .aside {
-  display: flex;
-  flex-direction: column;
-  width: calc(296 / 1240 * 100%);
+  min-width: calc(296 / 1240 * 100%);
   margin-right: 32px;
 }
 
 .timetable {
   padding-top: 30px;
-  height: 380px;
-  width: calc(952 / 1240 * 100%);
+  width: calc(922  / 1240 * 100%);
   background-color: var(--grayF4);
 }
 
 .dayDataContent {
   display: flex;
   flex-direction: column;
-  flex: 1 1 0;
+  height: 240px;
   padding: 25px;
   margin-bottom: 32px;
   background-color: var(--grayF4);
@@ -38,16 +39,32 @@
   align-items: center;
   justify-content: center;
   padding: 25px;
+  height: 179px;
   background-color: var(--grayF4);
 }
 
 .pomodoroDataE{
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding-top: 30px;
   height: 179px;
   position: relative;
   background-color: var(--grayF4);
+}
+
+.pomodoroWrap {
+  display: flex;
+  align-items: center;
+}
+
+.pomodoroNum {
+  margin-left: 15px;
+  width: 4ch;
+  color: var(--gray99);
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
 }
 
 .pomodoroNumber {
@@ -58,7 +75,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 9px 78px;
+  padding: 9px 10px;
   background-color: var(--red);
   color: var(--white);
   font-size: 24px;
@@ -80,30 +97,63 @@
 }
 
 .botMetaData > div {
+  display: flex;
+  justify-content: space-between;
   width: 31.9%;
   padding: 25px;
-  background-color: var(--grayF4);
 }
 
 .focus {
-  display: flex;
-  justify-content: space-between;
+  background-color: var(--grayF4);
 }
 
 .pauseTime {
-  display: flex;
-  justify-content: space-between;
+  background-color: var(--grayF4);
 }
 
 .stopCounter {
-  display: flex;
-  justify-content: space-between;
+  background-color: var(--grayF4);
 }
 
-.blockTitle {  
+.focusColor {
+  background-color: var(--peachLight);
+}
+
+.pauseTimeColor {
+  background-color: var(--purpleLight);
+}
+
+.stopCounterColor {
+  background-color: var(--aquaLight);
+}
+
+.focusColor .blockRight svg > path {
+  stroke: var(--peach);
+}
+
+.pauseTimeColor .blockRight svg > path {
+  stroke: var(--purple);
+}
+
+.stopCounterColor .blockRight svg > path {
+  stroke: var(--aqua);
+}
+
+.blockTitle {
+  margin-bottom: 14px;
   font-weight: 700;
   font-size: 24px;
   line-height: 33px;
+}
+
+.workData {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.workTime {
+  color: var(--red);
 }
 
 .blockData {  

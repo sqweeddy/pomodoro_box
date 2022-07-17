@@ -25,6 +25,34 @@
   background-color: var(--grayF4);
 }
 
+.input {
+  z-index: 2;
+  position: absolute;
+  left: 35px;
+  width: 60%;
+  border: none;
+  border-bottom: 1px solid var(--grayE4);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 17px;
+}
+
+.input:focus {
+  border-bottom: 1px solid var(--green);
+  outline: none;
+}
+
+.btn {
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  padding: 4px;
+  border: none;
+  background-color: var(--green);
+  color: var(--white);
+  cursor: pointer;
+}
+
 .crossStyle {
   width: 26px;
   height: 26px;

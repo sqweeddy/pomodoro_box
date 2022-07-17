@@ -14,7 +14,7 @@ export function TaskCreator() {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    if (ref.current) {
+    if (ref.current?.value) {
       dispatch(
         TaskActionCreators.setTask({
           name: ref.current.value,

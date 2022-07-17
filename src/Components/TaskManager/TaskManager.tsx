@@ -13,10 +13,11 @@ export function TaskManager() {
   const [isInitialStart, setInitialStart] = useState(false);
   const [isTimerActive, setTimerActive] = useState(false);
   const [isBreakActive, setBreakActive] = useState(false);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(5);
-  const [pomodoroTimer, setPomodoroTimer] = useState(seconds);
+  const [minutes, setMinutes] = useState(25);
+  const [seconds, setSeconds] = useState(0);
+  const [pomodoroTimer, setPomodoroTimer] = useState(minutes);
   const [taskNumber, setTaskNumber] = useState(0);
+  const [taskCounter, setTaskCounter] = useState(0);
   const [pomodoroNumber, setPomodoroNumber] = useState(1);
   const [taskTitle, setTaskTitle] = useState("Текущая задача");
 
@@ -40,10 +41,15 @@ export function TaskManager() {
       if (seconds === 0 && minutes === 0) {
         if (!isBreakActive && isTimerActive) {
           setBreakActive(true);
-          setPauseTime();
+          setPauseTime(1);
+          setTaskCounter((c) => c + 1);
           dispatch(
             StatsActionCreators.addPomodoro(date.getDate(), pomodoroTimer)
           );
+          if (taskCounter === 3) {
+            setPauseTime(30);
+            setTaskCounter(0);
+          }
         } else {
           setBreakActive(false);
           dispatch(StatsActionCreators.addPause(date.getDate()));
@@ -87,6 +93,7 @@ export function TaskManager() {
     seconds,
     taskArray,
     taskNumber,
+    taskCounter,
   ]);
 
   function handleStart() {
@@ -122,18 +129,24 @@ export function TaskManager() {
   }
 
   function setTime() {
-    setMinutes(0);
-    setSeconds(pomodoroTimer);
+    setMinutes(pomodoroTimer);
+    setSeconds(0);
   }
 
-  function setPauseTime() {
-    setMinutes(0);
-    setSeconds(5);
+  function setPauseTime(time: number) {
+    setMinutes(time);
+    setSeconds(0);
   }
 
   function handlePlus() {
-    setSeconds(seconds + 1);
+    setMinutes(minutes + 1);
     setPomodoroTimer(pomodoroTimer + 1);
+  }
+
+  function handleComplete() {
+    setMinutes(0);
+    setSeconds(0);
+    setTimerActive(true);
   }
 
   return (
@@ -187,12 +200,21 @@ export function TaskManager() {
                 onClick={handleStart}
               />
             )}
-            <CustomButton
-              text="Стоп"
-              buttonStyle={EButtonStyle.stop}
-              onClick={handleStop}
-              disabled={isInitialStart ? false : true}
-            />
+            {isTimerActive ? (
+              <CustomButton
+                text="Стоп"
+                buttonStyle={EButtonStyle.stop}
+                onClick={handleStop}
+                disabled={isInitialStart ? false : true}
+              />
+            ) : (
+              <CustomButton
+                text={isInitialStart ? "Сделано" : "Стоп"}
+                buttonStyle={EButtonStyle.stop}
+                onClick={handleComplete}
+                disabled={isInitialStart ? false : true}
+              />
+            )}
           </div>
         ) : (
           <div className={styles.buttonBlock}>

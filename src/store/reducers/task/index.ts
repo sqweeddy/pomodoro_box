@@ -31,6 +31,13 @@ export default function taskReducer(state = initialState, action : TaskAction): 
       }
       return { ...state, taskArray: [...taskArray]}
   
+    case 'EDIT_TASK_NAME':
+      const editedTask = taskArray.find(el => el.id === action.payload.id);
+      if (editedTask) {
+        editedTask.name = action.payload.name
+      }
+      return { ...state, taskArray: [...taskArray]}
+
     default:
       return state;
   }
