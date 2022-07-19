@@ -13,7 +13,7 @@ export function TaskManager() {
   const [isInitialStart, setInitialStart] = useState(false);
   const [isTimerActive, setTimerActive] = useState(false);
   const [isBreakActive, setBreakActive] = useState(false);
-  const [minutes, setMinutes] = useState(25);
+  const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
   const [pomodoroTimer, setPomodoroTimer] = useState(minutes);
   const [taskNumber, setTaskNumber] = useState(0);
@@ -47,7 +47,7 @@ export function TaskManager() {
             StatsActionCreators.addPomodoro(date.getDate(), pomodoroTimer)
           );
           if (taskCounter === 3) {
-            setPauseTime(30);
+            setPauseTime(2);
             setTaskCounter(0);
           }
         } else {

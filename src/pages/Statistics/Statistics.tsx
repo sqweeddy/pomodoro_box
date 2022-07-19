@@ -37,7 +37,7 @@ export function Statistics() {
   const [stopNumber, setStopNumber] = useState(0);
   const [focusNumber, setFocusNumber] = useState(0);
   const [week, setWeek] = useState(correctArr.currentWeek);
-  const [activeBar, setActiveBar] = useState(currDayClear);
+  const [activeBar, setActiveBar] = useState(8);
 
   function handleBarClick() {
     setActiveBar(arguments[1]);
@@ -106,10 +106,10 @@ export function Statistics() {
                   {workTime === "0" ? (
                     <p></p>
                   ) : (
-                    <p className={styles.workData}>
+                    <div className={styles.workData}>
                       Вы работали над задачами в течении{" "}
-                      <div className={styles.workTime}>{workTime}</div>
-                    </p>
+                      <p className={styles.workTime}>{workTime}</p>
+                    </div>
                   )}
                 </div>
               </div>

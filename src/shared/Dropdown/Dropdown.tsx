@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import styles from "./dropdown.module.css";
 import { ReactComponent as MenuIcon } from "../../images/menu-icon.svg";
 import { ReactComponent as MenuPlus } from "../../images/menu-icon-plus.svg";
@@ -27,6 +27,26 @@ export function Dropdown({ id }: IDropdown) {
   const ref = useRef<HTMLDivElement>(null);
   const portal = document.querySelector("#portal");
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   function handleClick(event: MouseEvent) {
+  //     if (
+  //       event.target instanceof Node &&
+  //       !ref.current?.contains(event.target)
+  //     ) {
+  //       setIsDropdownOpen(!isDropdownOpen);
+  //     }
+  //   }
+
+  //   const timeout = setTimeout(() => {
+  //     document.addEventListener("click", handleClick);
+  //   }, 1);
+
+  //   return () => {
+  //     clearTimeout(timeout);
+  //     document.removeEventListener("click", handleClick);
+  //   };
+  // }, [isDropdownOpen]);
 
   const handleOpen = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -75,6 +95,7 @@ export function Dropdown({ id }: IDropdown) {
         ReactDOM.createPortal(
           <Modal
             setIsModalOpened={setIsModalOpened}
+            isModalOpened={isModalOpened}
             action={handleDelete}
             id={id}
           />,
@@ -94,7 +115,7 @@ export function Dropdown({ id }: IDropdown) {
           </button>
         </>
       )}
-      <div>
+      <div ref={ref}>
         <button className={styles.taskItem__btn} onClick={handleOpen}>
           {isDropdownOpen ? (
             <Cross className={styles.crossStyle} />
@@ -103,7 +124,7 @@ export function Dropdown({ id }: IDropdown) {
           )}
         </button>
         {isDropdownOpen && (
-          <div className={styles.dropdown} ref={ref}>
+          <div className={styles.dropdown}>
             <ul>
               <li className={styles.menuItem}>
                 <CustomButton

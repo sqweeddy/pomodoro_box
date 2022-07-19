@@ -3,27 +3,33 @@ import styles from "./modal.module.css";
 
 interface IModal {
   setIsModalOpened: (value: React.SetStateAction<boolean>) => void;
+  isModalOpened: boolean;
   id: string;
   action: (taskId: string) => void;
 }
 
-export function Modal({ setIsModalOpened, action, id }: IModal) {
+export function Modal({ setIsModalOpened, action, id, isModalOpened }: IModal) {
   const ref = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   function handleClick(event: MouseEvent) {
-  //     if (
-  //       event.target instanceof Node &&
-  //       !ref.current?.contains(event.target)
-  //     ) {
-  //       setIsModalOpened(false);
-  //     }
-  //   }
-  //   document.addEventListener("click", handleClick);
-  //   return () => {
-  //     document.removeEventListener("click", handleClick);
-  //   };
-  // }, [ref]);
+  useEffect(() => {
+    function handleClick(event: MouseEvent) {
+      if (
+        event.target instanceof Node &&
+        !ref.current?.contains(event.target)
+      ) {
+        setIsModalOpened(!isModalOpened);
+      }
+    }
+
+    const timeout = setTimeout(() => {
+      document.addEventListener("click", handleClick);
+    }, 1);
+
+    return () => {
+      clearTimeout(timeout);
+      document.removeEventListener("click", handleClick);
+    };
+  }, [isModalOpened, ref]);
 
   return (
     <div className={styles.wrapper}>
