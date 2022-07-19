@@ -2,10 +2,10 @@ import React, { FormEvent, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { CustomButton, EButtonStyle } from "../../shared/CustomButton";
-import { Dropdown } from "../../shared/Dropdown";
 import { TaskActionCreators } from "../../store/reducers/task/action-creators";
 import styles from "./taskcreator.module.css";
 import { nanoid } from "nanoid";
+import { Task } from "./Task/Task";
 
 export function TaskCreator() {
   const taskArray = useTypedSelector((state) => state.taskReducer.taskArray);
@@ -40,15 +40,12 @@ export function TaskCreator() {
       {taskArray.length > 0 && (
         <ul className={styles.taskList}>
           {taskArray.map((task) => (
-            <li className={styles.taskItem} key={task.id}>
-              <div className={styles.taskItem__data}>
-                <div className={styles.taskItem__reps}>
-                  <span>{task.repeats}</span>
-                </div>
-                <span className={styles.taskItem__name}>{task.name}</span>
-              </div>
-              <Dropdown id={task.id} />
-            </li>
+            <Task
+              id={task.id}
+              name={task.name}
+              repeats={task.repeats}
+              key={task.id}
+            />
           ))}
         </ul>
       )}
