@@ -2,8 +2,13 @@
   padding: 19px 15px;
   margin-bottom: 25px;
   background-color: var(--grayF4);
-  border: none;
+  border: 1px solid transparent;
   width: 70%;
+  transition: border .3s ease;
+}
+
+.input:focus {
+  border-color: var(--green);
 }
 
 .input::placeholder {
@@ -20,4 +25,9 @@
 
 .taskList {
   width: 70%;
+  margin-bottom: 180px;
+}
+
+.taskItem:not(:first-child) {
+  margin-top: -1px;
 }

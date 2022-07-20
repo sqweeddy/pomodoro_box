@@ -6,6 +6,7 @@ import { TaskActionCreators } from "../../store/reducers/task/action-creators";
 import styles from "./taskcreator.module.css";
 import { nanoid } from "nanoid";
 import { Task } from "./Task/Task";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function TaskCreator() {
   const taskArray = useTypedSelector((state) => state.taskReducer.taskArray);
@@ -26,6 +27,14 @@ export function TaskCreator() {
     }
   }
 
+  const taskVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+    },
+  };
+
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -37,18 +46,28 @@ export function TaskCreator() {
         />
         <CustomButton text="Добавить" buttonStyle={EButtonStyle.green} />
       </form>
-      {taskArray.length > 0 && (
-        <ul className={styles.taskList}>
+
+      <ul className={styles.taskList}>
+        <AnimatePresence>
           {taskArray.map((task) => (
-            <Task
-              id={task.id}
-              name={task.name}
-              repeats={task.repeats}
+            <motion.li
               key={task.id}
-            />
+              initial="hidden"
+              variants={taskVariants}
+              animate="visible"
+              exit="hidden"
+              className={styles.taskItem}
+            >
+              <Task
+                id={task.id}
+                name={task.name}
+                repeats={task.repeats}
+                key={task.id}
+              />
+            </motion.li>
           ))}
-        </ul>
-      )}
+        </AnimatePresence>
+      </ul>
     </>
   );
 }

@@ -49,7 +49,7 @@ export function Task({ id, repeats, name }: ITask) {
     <div className={styles.taskItem} key={id}>
       <div className={styles.taskItem__data}>
         <div className={styles.taskItem__reps}>
-          <span>{repeats}</span>
+          <span className={styles.taskItem__number}>{repeats}</span>
         </div>
         {isEditOpen ? (
           <div>

@@ -46,6 +46,7 @@ body {
   padding: 0;
   color: var(--black);
   box-sizing: border-box;
+  outline: none;
 }
 
 a {
@@ -60,4 +61,3 @@ ul {
 .container {
   margin: 0 80px;
 }
-

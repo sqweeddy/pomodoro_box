@@ -11,13 +11,18 @@
   line-height: 17px;
 }
 
+.taskItem__name {
+  transition: color .3s ease;
+}
+
+.taskItem:hover .taskItem__data .taskItem__name {
+  color: var(--green);
+}
+
 .taskItem:not(:first-child) {
   margin-top: -1px;
 }
 
-.taskItem:hover > * > *+* {
-  color: var(--green);
-}
 
 .taskItem__reps {
   display: flex;
@@ -45,6 +50,10 @@
   background-color: transparent;
   cursor: pointer;
   border-radius: 100%;
+}
+
+.taskItem__btn:focus-visible {
+  background-color: #a8b64f77;
 }
 
 .crossStyle {
@@ -80,7 +89,6 @@
 
 .input:focus {
   border-bottom: 1px solid var(--green);
-  outline: none;
 }
 
 .btn {

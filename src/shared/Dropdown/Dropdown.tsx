@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useRef } from "react";
+import React, { Dispatch, useEffect, useRef, useState } from "react";
 import styles from "./dropdown.module.css";
 import { ReactComponent as MenuPlus } from "../../images/menu-icon-plus.svg";
 import { ReactComponent as MenuMinus } from "../../images/menu-icon-minus.svg";
@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { TaskActionCreators } from "../../store/reducers/task/action-creators";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { SetStateAction } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface IDropdown {
   id: string;
@@ -76,46 +77,55 @@ export function Dropdown({
   };
 
   return (
-    <div className={styles.dropdown} ref={ref}>
-      <ul>
-        <li className={styles.menuItem}>
-          <CustomButton
-            buttonStyle={EButtonStyle.menu}
-            onClick={handlePlus}
-            text="Увеличить"
-          >
-            <MenuPlus className={styles.menuIcon} />
-          </CustomButton>
-        </li>
-        <li className={styles.menuItem}>
-          <CustomButton
-            buttonStyle={EButtonStyle.menu}
-            onClick={handleMinus}
-            text="Уменьшить"
-            disabled={task?.repeats === 1}
-          >
-            <MenuMinus className={styles.menuIcon} />
-          </CustomButton>
-        </li>
-        <li className={styles.menuItem}>
-          <CustomButton
-            buttonStyle={EButtonStyle.menu}
-            onClick={handleEdit}
-            text="Редактировать"
-          >
-            <MenuEdit className={styles.menuIcon} />
-          </CustomButton>
-        </li>
-        <li className={styles.menuItem}>
-          <CustomButton
-            buttonStyle={EButtonStyle.menu}
-            onClick={openDeleteModal}
-            text="Удалить"
-          >
-            <MenuDelete className={styles.menuIcon} />
-          </CustomButton>
-        </li>
-      </ul>
-    </div>
+    <AnimatePresence>
+      <motion.div
+        className={styles.dropdown}
+        ref={ref}
+        initial={{ height: 0 }}
+        exit={{ height: 0 }}
+        style={{ overflow: "hidden" }}
+        animate={{ height: "auto" }}
+      >
+        <ul>
+          <li className={styles.menuItem}>
+            <CustomButton
+              buttonStyle={EButtonStyle.menu}
+              onClick={handlePlus}
+              text="Увеличить"
+            >
+              <MenuPlus className={styles.menuIcon} />
+            </CustomButton>
+          </li>
+          <li className={styles.menuItem}>
+            <CustomButton
+              buttonStyle={EButtonStyle.menu}
+              onClick={handleMinus}
+              text="Уменьшить"
+              disabled={task?.repeats === 1}
+            >
+              <MenuMinus className={styles.menuIcon} />
+            </CustomButton>
+          </li>
+          <li className={styles.menuItem}>
+            <CustomButton
+              buttonStyle={EButtonStyle.menu}
+              onClick={handleEdit}
+              text="Редактировать"
+            >
+              <MenuEdit className={styles.menuIcon} />
+            </CustomButton>
+          </li>
+          <li className={styles.menuItem}>
+            <CustomButton
+              buttonStyle={EButtonStyle.menu}
+              onClick={openDeleteModal}
+              text="Удалить"
+            >
+              <MenuDelete className={styles.menuIcon} />
+            </CustomButton>
+          </li>
+        </ul>
+      </motion.div>
+    </AnimatePresence>
   );
 }

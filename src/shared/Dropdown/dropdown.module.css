@@ -12,6 +12,10 @@
   margin-right: 7px;
 }
 
+.menuItem {
+  transition: background-color .3s ease;
+}
+
 .menuItem:hover {  
   background-color: var(--grayF4);
 }

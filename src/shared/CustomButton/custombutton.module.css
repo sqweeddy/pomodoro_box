@@ -7,6 +7,20 @@
   background-color: var(--green);
   border: 2px solid var(--green);
   cursor: pointer;
+  transition: background-color .3s ease, border-color .3s ease;
+}
+
+.green:focus {
+  background-color: var(--greenDark);
+}
+
+.green:hover {
+  background-color: var(--greenDark);
+  border-color: var(--greenDark);
+}
+
+.green:active{
+  border-color: var(--green);
 }
 
 .red {
@@ -18,6 +32,16 @@
   background-color: var(--red);
   border: 2px solid var(--red);
   cursor: pointer;
+  transition: background-color .3s ease, border-color .3s ease;
+}
+
+.red:hover {
+  background-color: var(--redDark);
+  border-color: var(--redDark);
+}
+
+.red:active{
+  border-color: var(--red);
 }
 
 .red:disabled {
@@ -33,6 +57,17 @@
   background-color: transparent;
   border: 2px solid var(--red);
   cursor: pointer;
+  transition: background-color .3s ease, color .3s ease;
+}
+
+.stop:not(:disabled):hover {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.stop:not(:disabled):active{
+  border-color: var(--redDark);
+  color: var(--white);
 }
 
 .stop:disabled {
@@ -40,6 +75,8 @@
   color: var(--grayC4);
   border-color: var(--grayC4);
 }
+
+
 
 .menu {
   display: flex;

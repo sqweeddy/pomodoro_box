@@ -100,4 +100,25 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  outline: none;
+}
+
+.plus:focus svg circle {
+  fill: var(--green);
+}
+
+.plus:hover svg circle {
+  fill: var(--green);
+}
+
+.plus:active svg  {
+  transform: scale(1.1);
+}
+
+.plus svg  {
+  transition: transform .3s ease;
+}
+
+.plus svg circle {
+  transition: fill .3s ease;
 }
